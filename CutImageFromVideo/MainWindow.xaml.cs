@@ -65,10 +65,10 @@ namespace CutImageFromVideo {
         private static string VideoContainerFilter() {
             var filter = new StringBuilder()
                 .Append("AVI|*.avi").Append("|")
-                .Append("MP4|(*.mp4, *.m4a)").Append("|")
-                .Append("MOV|(*.mov, .qt)").Append("|")
-                .Append("MPEG2-TS|(*.m2ts, *.ts)").Append("|")
-                .Append("MPEG2-PS|(*.mpeg, *.mpg)").Append("|")
+                .Append("MP4|*.mp4; *.m4a").Append("|")
+                .Append("MOV|*.mov; .qt").Append("|")
+                .Append("MPEG2-TS|*.m2ts; *.ts").Append("|")
+                .Append("MPEG2-PS|*.mpeg; *.mpg").Append("|")
                 .Append("MKV|*.mkv").Append("|")
                 .Append("WMV|*.wmv").Append("|")
                 .Append("FLV|*.flv").Append("|")
@@ -76,7 +76,7 @@ namespace CutImageFromVideo {
                 .Append("VOB|*.wmv").Append("|")
                 .Append("WebM|*.webm").Append("|")
                 .Append("OGM|*.ogm").Append("|")
-                .Append("All file|*.*");
+                .Append("All files|*.*");
 
             return filter.ToString();
         }
