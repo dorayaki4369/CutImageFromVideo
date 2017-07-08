@@ -11,7 +11,7 @@
         AllowDrop="True"
         Drop="MovieList_Drop" PreviewDragOver="MovieList_PreviewDragOver">
     <Window.DataContext>
-        <cutImageFromMovie:MovieList/>
+        <cutImageFromMovie:SettingData/>
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
@@ -50,7 +50,7 @@
                  BorderThickness="1"
                  Margin="5"
                  Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
-                 ItemsSource="{Binding FileNames}"/>
+                 ItemsSource="{Binding MovieFileNames}"/>
 
         <Button x:Name="MovieBrowseButton" Content="Browse..."
                 Grid.Column="1" Grid.Row="1"

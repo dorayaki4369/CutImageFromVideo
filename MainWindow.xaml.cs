@@ -24,12 +24,12 @@ namespace CutImageFromMovie {
         }
 
         private void MovieList_Drop(object sender, DragEventArgs e) {
-            var list = DataContext as MovieList;
+            var list = DataContext as SettingData;
             var files = e.Data.GetData(DataFormats.FileDrop) as string[];
 
             if (files == null) return;
             foreach (var s in files) {
-                list?.FileNames.Add(s);
+                list?.MovieFileNames.Add(s);
             }
         }
 
