@@ -48,6 +48,7 @@
                  BorderThickness="1"
                  Margin="5"
                  Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
+                 SelectionMode="Multiple"
                  AllowDrop="True"
                  Drop="VideoList_Drop" PreviewDragOver="VideoList_PreviewDragOver"
                  ItemsSource="{Binding VideoFileNames}"/>
@@ -58,7 +59,7 @@
 
         <Button x:Name="VideoSelectAllButton" Content="Select all"
                 Grid.Column="1" Grid.Row="2"
-                Margin="5" Height="Auto" />
+                Margin="5" Height="Auto" Click="VideoSelectAllButton_Click" />
 
         <Button x:Name="VideoDeleteButton" Content="Delete"
                 Grid.Column="1" Grid.Row="3"

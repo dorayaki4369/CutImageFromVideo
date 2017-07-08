@@ -80,5 +80,12 @@ namespace CutImageFromVideo {
 
             return filter.ToString();
         }
+
+        /**
+         * Video : SelectAll
+         */
+        private void VideoSelectAllButton_Click(object sender, RoutedEventArgs e) {
+            VideoList.SelectAll();
+        }
     }
 }
