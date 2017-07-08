@@ -19,30 +19,25 @@ namespace CutImageFromVideo {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
+    public partial class MainWindow : Window {
+        public MainWindow() {
             InitializeComponent();
         }
 
         /**
          * Video : Drag&Drop
          */
-        private void VideoList_Drop(object sender, DragEventArgs e)
-        {
+        private void VideoList_Drop(object sender, DragEventArgs e) {
             var list = DataContext as SettingData;
             var files = e.Data.GetData(DataFormats.FileDrop) as string[];
 
             if (files == null) return;
-            foreach (var s in files)
-            {
+            foreach (var s in files) {
                 list?.VideoFileNames.Add(s);
             }
         }
 
-        private void VideoList_PreviewDragOver(object sender, DragEventArgs e)
-        {
+        private void VideoList_PreviewDragOver(object sender, DragEventArgs e) {
             e.Effects = e.Data.GetDataPresent(DataFormats.FileDrop, true)
                 ? DragDropEffects.Copy
                 : DragDropEffects.None;
@@ -52,10 +47,8 @@ namespace CutImageFromVideo {
         /**
          * Video : Browse
          */
-        private void VideoBrowseButton_Click(object sender, RoutedEventArgs e)
-        {
-            var ofd = new OpenFileDialog
-            {
+        private void VideoBrowseButton_Click(object sender, RoutedEventArgs e) {
+            var ofd = new OpenFileDialog {
                 Title = "Select video file",
                 FileName = "*.avi",
                 Filter = VideoContainerFilter(),
@@ -63,15 +56,13 @@ namespace CutImageFromVideo {
             };
 
             var list = DataContext as SettingData;
-            if (ofd.ShowDialog() == true)
-            {
+            if (ofd.ShowDialog() == true) {
                 list?.VideoFileNames.Add(ofd.FileName);
             }
         }
 
         //Create video container format
-        private static string VideoContainerFilter()
-        {
+        private static string VideoContainerFilter() {
             var filter = new StringBuilder()
                 .Append("AVI|*.avi").Append("|")
                 .Append("MP4|(*.mp4, *.m4a)").Append("|")
