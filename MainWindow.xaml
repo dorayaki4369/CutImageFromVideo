@@ -54,7 +54,7 @@
 
         <Button x:Name="MovieBrowseButton" Content="Browse..."
                 Grid.Column="1" Grid.Row="1"
-                Margin="5" Height="Auto" />
+                Margin="5" Height="Auto" Click="MovieBrowseButton_Click" />
 
         <Button x:Name="MovieSelectAllButton" Content="Select all"
                 Grid.Column="1" Grid.Row="2"

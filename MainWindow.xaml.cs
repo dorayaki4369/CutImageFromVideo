@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace CutImageFromMovie {
     /// <summary>
@@ -24,7 +25,7 @@ namespace CutImageFromMovie {
         }
 
         /**
-         * MovieList : Drag&Drop
+         * Movie : Drag&Drop
          */
         private void MovieList_Drop(object sender, DragEventArgs e) {
             var list = DataContext as SettingData;
@@ -41,6 +42,43 @@ namespace CutImageFromMovie {
                 ? DragDropEffects.Copy
                 : DragDropEffects.None;
             e.Handled = true;
+        }
+
+        /**
+         * Movie : Browse
+         */
+        private void MovieBrowseButton_Click(object sender, RoutedEventArgs e) {
+            var ofd = new OpenFileDialog {
+                Title = "Select Movie file",
+                FileName = "*.avi",
+                Filter = VideoContainerFilter(),
+                DefaultExt = "*.*"
+            };
+
+            var list = DataContext as SettingData;
+            if (ofd.ShowDialog() == true) {
+                list?.MovieFileNames.Add(ofd.FileName);
+            }
+        }
+
+        //Create video container format
+        private static string VideoContainerFilter() {
+            var filter = new StringBuilder()
+                .Append("AVI|*.avi").Append("|")
+                .Append("MP4|(*.mp4, *.m4a)").Append("|")
+                .Append("MOV|(*.mov, .qt)").Append("|")
+                .Append("MPEG2-TS|(*.m2ts, *.ts)").Append("|")
+                .Append("MPEG2-PS|(*.mpeg, *.mpg)").Append("|")
+                .Append("MKV|*.mkv").Append("|")
+                .Append("WMV|*.wmv").Append("|")
+                .Append("FLV|*.flv").Append("|")
+                .Append("ASF|*.asf").Append("|")
+                .Append("VOB|*.wmv").Append("|")
+                .Append("WebM|*.webm").Append("|")
+                .Append("OGM|*.ogm").Append("|")
+                .Append("All file|*.*");
+
+            return filter.ToString();
         }
     }
 }
