@@ -3,10 +3,98 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CutImageFromMovie"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="600" Width="525"
+        ResizeMode="CanMinimize">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+            <Setter Property="Margin" Value="0 8 0 8" />
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <!--Select Movie form-->
+        <TextBlock x:Name="MovieLabel" Text="Movies:"
+                   Style="{StaticResource MaterialDesignTitleTextBlock}"
+                   Grid.Column="0" Grid.Row="0"
+                   VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                   Margin="6,5,0,0" Width="Auto" />
+
+        <ListBox x:Name="MovieList"
+                 BorderBrush="Black"
+                 BorderThickness="1"
+                 Margin="5"
+                 Grid.Column="0" Grid.Row="1" Grid.RowSpan="4" />
+
+        <Button x:Name="MovieBrowseButton" Content="Browse..."
+                Grid.Column="1" Grid.Row="1"
+                Margin="5" Height="Auto" />
+
+        <Button x:Name="MovieSelectAllButton" Content="Select all"
+                Grid.Column="1" Grid.Row="2"
+                Margin="5" Height="Auto" />
+
+        <Button x:Name="MovieDeleteButton" Content="Delete"
+                Grid.Column="1" Grid.Row="3"
+                Margin="5" Height="Auto" />
+
+        <!--Browse Cascade file form-->
+        <TextBox x:Name="CascadeBox"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 materialDesign:HintAssist.Hint="Cascade file"
+                 Grid.Column="0" Grid.Row="5"
+                 Margin="5"
+                 TextWrapping="NoWrap" />
+
+        <Button x:Name="CascadeBrowseButton" Content="Browse..."
+                Grid.Column="1" Grid.Row="5"
+                Margin="5" Height="Auto" />
+
+        <!--Browse Output Directry form-->
+        <TextBox x:Name="DirectryBox"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 materialDesign:HintAssist.Hint="Output Directry"
+                 Grid.Column="0" Grid.Row="6"
+                 Margin="5"
+                 TextWrapping="NoWrap" />
+
+        <Button x:Name="DirectryBrowseButton" Content="Browse..."
+                Grid.Column="1" Grid.Row="6"
+                Margin="5" Height="Auto" />
+
+        <!--Start and stop form-->
+        <Grid Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="StartButton" Content="START"
+                    Grid.Column="1"
+                    Margin="5" Height="Auto" />
+
+            <Button x:Name="CancelButton" Content="CANSEL"
+                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    Grid.Column="2"
+                    Margin="5" Height="Auto" />
+        </Grid>
     </Grid>
 </Window>
