@@ -23,6 +23,9 @@ namespace CutImageFromMovie {
             InitializeComponent();
         }
 
+        /**
+         * MovieList : Drag&Drop
+         */
         private void MovieList_Drop(object sender, DragEventArgs e) {
             var list = DataContext as SettingData;
             var files = e.Data.GetData(DataFormats.FileDrop) as string[];
