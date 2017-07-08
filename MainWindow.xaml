@@ -7,9 +7,7 @@
         xmlns:cutImageFromMovie="clr-namespace:CutImageFromMovie"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="525"
-        ResizeMode="CanMinimize"
-        AllowDrop="True"
-        Drop="MovieList_Drop" PreviewDragOver="MovieList_PreviewDragOver">
+        ResizeMode="CanMinimize">
     <Window.DataContext>
         <cutImageFromMovie:SettingData/>
     </Window.DataContext>
@@ -50,6 +48,8 @@
                  BorderThickness="1"
                  Margin="5"
                  Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
+                 AllowDrop="True"
+                 Drop="MovieList_Drop" PreviewDragOver="MovieList_PreviewDragOver"
                  ItemsSource="{Binding MovieFileNames}"/>
 
         <Button x:Name="MovieBrowseButton" Content="Browse..."
