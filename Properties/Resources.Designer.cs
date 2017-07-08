@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CutImageFromMovie.Properties
+namespace CutImageFromVideo.Properties
 {
 
 

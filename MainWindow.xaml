@@ -1,10 +1,10 @@
-﻿<Window x:Class="CutImageFromMovie.MainWindow"
+﻿<Window x:Class="CutImageFromVideo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:cutImageFromMovie="clr-namespace:CutImageFromMovie"
+        xmlns:cutImageFromMovie="clr-namespace:CutImageFromVideo"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="525"
         ResizeMode="CanMinimize">
@@ -36,31 +36,31 @@
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         
-        <!--Select Movie form-->
-        <TextBlock x:Name="MovieLabel" Text="Movies:"
+        <!--Select Video form-->
+        <TextBlock x:Name="VideoTextBox" Text="Videos:"
                    Style="{StaticResource MaterialDesignTitleTextBlock}"
                    Grid.Column="0" Grid.Row="0"
                    VerticalAlignment="Bottom" HorizontalAlignment="Left"
                    Margin="6,5,0,0" Width="Auto" />
 
-        <ListBox x:Name="MovieList"
+        <ListBox x:Name="VideoList"
                  BorderBrush="DarkGray"
                  BorderThickness="1"
                  Margin="5"
                  Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
                  AllowDrop="True"
-                 Drop="MovieList_Drop" PreviewDragOver="MovieList_PreviewDragOver"
-                 ItemsSource="{Binding MovieFileNames}"/>
+                 Drop="VideoList_Drop" PreviewDragOver="VideoList_PreviewDragOver"
+                 ItemsSource="{Binding VideoFileNames}"/>
 
-        <Button x:Name="MovieBrowseButton" Content="Browse..."
+        <Button x:Name="VideoBrowseButton" Content="Browse..."
                 Grid.Column="1" Grid.Row="1"
-                Margin="5" Height="Auto" Click="MovieBrowseButton_Click" />
+                Margin="5" Height="Auto" Click="VideoBrowseButton_Click" />
 
-        <Button x:Name="MovieSelectAllButton" Content="Select all"
+        <Button x:Name="VideoSelectAllButton" Content="Select all"
                 Grid.Column="1" Grid.Row="2"
                 Margin="5" Height="Auto" />
 
-        <Button x:Name="MovieDeleteButton" Content="Delete"
+        <Button x:Name="VideoDeleteButton" Content="Delete"
                 Grid.Column="1" Grid.Row="3"
                 Margin="5" Height="Auto" />
 

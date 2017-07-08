@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 
-namespace CutImageFromMovie {
+namespace CutImageFromVideo {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
@@ -25,19 +25,19 @@ namespace CutImageFromMovie {
         }
 
         /**
-         * Movie : Drag&Drop
+         * Video : Drag&Drop
          */
-        private void MovieList_Drop(object sender, DragEventArgs e) {
+        private void VideoList_Drop(object sender, DragEventArgs e) {
             var list = DataContext as SettingData;
             var files = e.Data.GetData(DataFormats.FileDrop) as string[];
 
             if (files == null) return;
             foreach (var s in files) {
-                list?.MovieFileNames.Add(s);
+                list?.VideoFileNames.Add(s);
             }
         }
 
-        private void MovieList_PreviewDragOver(object sender, DragEventArgs e) {
+        private void VideoList_PreviewDragOver(object sender, DragEventArgs e) {
             e.Effects = e.Data.GetDataPresent(DataFormats.FileDrop, true)
                 ? DragDropEffects.Copy
                 : DragDropEffects.None;
@@ -45,11 +45,11 @@ namespace CutImageFromMovie {
         }
 
         /**
-         * Movie : Browse
+         * Video : Browse
          */
-        private void MovieBrowseButton_Click(object sender, RoutedEventArgs e) {
+        private void VideoBrowseButton_Click(object sender, RoutedEventArgs e) {
             var ofd = new OpenFileDialog {
-                Title = "Select Movie file",
+                Title = "Select video file",
                 FileName = "*.avi",
                 Filter = VideoContainerFilter(),
                 DefaultExt = "*.*"
@@ -57,7 +57,7 @@ namespace CutImageFromMovie {
 
             var list = DataContext as SettingData;
             if (ofd.ShowDialog() == true) {
-                list?.MovieFileNames.Add(ofd.FileName);
+                list?.VideoFileNames.Add(ofd.FileName);
             }
         }
 
