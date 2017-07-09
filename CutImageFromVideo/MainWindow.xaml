@@ -105,7 +105,7 @@
             <Button x:Name="StartButton" Content="START"
                     Grid.Column="1"
                     Margin="5" Height="Auto"
-                    IsEnabled="False" />
+                    IsEnabled="False" Click="StartButton_Click" />
 
             <Button x:Name="CancelButton" Content="CANSEL"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"

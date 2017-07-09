@@ -162,5 +162,13 @@ namespace CutImageFromVideo {
                 StartButton.IsEnabled = false;
             }
         }
+
+        /**
+         * StartButton : Click
+         */
+        private void StartButton_Click(object sender, RoutedEventArgs e) {
+            var detector = new Detector(DataContext as SettingData);
+            detector.Run();
+        }
     }
 }
