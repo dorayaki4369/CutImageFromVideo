@@ -1,6 +1,12 @@
 ﻿using System.Text;
 using System.Windows;
-using Microsoft.Win32;
+using System.Windows.Forms;
+using DataFormats = System.Windows.DataFormats;
+using DragDropEffects = System.Windows.DragDropEffects;
+using DragEventArgs = System.Windows.DragEventArgs;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+
+using Forms = System.Windows.Forms;
 
 namespace CutImageFromVideo {
     /// <summary>
@@ -109,6 +115,20 @@ namespace CutImageFromVideo {
             CascadeBox.CaretIndex = CascadeBox.Text.Length;
             var rect = CascadeBox.GetRectFromCharacterIndex(CascadeBox.CaretIndex);
             CascadeBox.ScrollToHorizontalOffset(rect.Right);
+        }
+
+        /**
+         * OutputDirectry : Browse
+         */
+        private void DirectryBrowseButton_Click(object sender, RoutedEventArgs e) {
+            var dialog = new FolderBrowserDialog {
+                Description = @"Select Oputput directry"
+            };
+
+            if (dialog.ShowDialog() != Forms.DialogResult.OK) return;
+            var list = DataContext as SettingData;
+            if (list != null) list.OutputDirectryName.Value = dialog.SelectedPath;
+            DirectryBox.Text = dialog.SelectedPath;
         }
     }
 }
