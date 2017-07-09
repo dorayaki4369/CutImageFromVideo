@@ -5,7 +5,6 @@ using DataFormats = System.Windows.DataFormats;
 using DragDropEffects = System.Windows.DragDropEffects;
 using DragEventArgs = System.Windows.DragEventArgs;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-
 using Forms = System.Windows.Forms;
 
 namespace CutImageFromVideo {
@@ -30,6 +29,8 @@ namespace CutImageFromVideo {
             }
 
             VideoScrollViewer.ScrollToRightEnd();
+
+            CheckStartButtonEnablded();
         }
 
         private void VideoList_PreviewDragOver(object sender, DragEventArgs e) {
@@ -56,6 +57,8 @@ namespace CutImageFromVideo {
             }
 
             VideoScrollViewer.ScrollToRightEnd();
+
+            CheckStartButtonEnablded();
         }
 
         //Create video container format
@@ -85,6 +88,8 @@ namespace CutImageFromVideo {
             var list = DataContext as SettingData;
             if (VideoList.SelectedIndex == -1) return;
             list?.VideoFileNames?.RemoveAt(VideoList.SelectedIndex);
+
+            CheckStartButtonEnablded();
         }
 
         /**
@@ -93,6 +98,8 @@ namespace CutImageFromVideo {
         private void VideoDeleteAllButton_Click(object sender, RoutedEventArgs e) {
             var list = DataContext as SettingData;
             list?.VideoFileNames.Clear();
+
+            StartButton.IsEnabled = false;
         }
 
         /**
@@ -115,6 +122,8 @@ namespace CutImageFromVideo {
             CascadeBox.CaretIndex = CascadeBox.Text.Length;
             var rect = CascadeBox.GetRectFromCharacterIndex(CascadeBox.CaretIndex);
             CascadeBox.ScrollToHorizontalOffset(rect.Right);
+
+            CheckStartButtonEnablded();
         }
 
         /**
@@ -134,6 +143,24 @@ namespace CutImageFromVideo {
             DirectryBox.CaretIndex = DirectryBox.Text.Length;
             var rect = DirectryBox.GetRectFromCharacterIndex(DirectryBox.CaretIndex);
             DirectryBox.ScrollToHorizontalOffset(rect.Right);
+
+            CheckStartButtonEnablded();
+        }
+
+        /**
+         * StartButton : Check
+         */
+        private void CheckStartButtonEnablded() {
+            var list = DataContext as SettingData;
+            if (list != null
+                && list.VideoFileNames.Count != 0
+                && list.CascadeFileName != null
+                && list.OutputDirectryName != null) {
+                StartButton.IsEnabled = true;
+            }
+            else {
+                StartButton.IsEnabled = false;
+            }
         }
     }
 }

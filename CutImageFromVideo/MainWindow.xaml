@@ -9,7 +9,7 @@
         Title="MainWindow" Height="600" Width="525"
         ResizeMode="CanMinimize">
     <Window.DataContext>
-        <cutImageFromVideo:SettingData/>
+        <cutImageFromVideo:SettingData />
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
@@ -41,20 +41,20 @@
                    Style="{StaticResource MaterialDesignTitleTextBlock}"
                    Grid.Column="0" Grid.Row="0"
                    Margin="5"
-                   VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                   VerticalAlignment="Bottom" HorizontalAlignment="Left" />
 
         <ScrollViewer x:Name="VideoScrollViewer"
-            HorizontalScrollBarVisibility="Auto"
-            VerticalScrollBarVisibility="Auto"
-            Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
-            Margin="5">
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto"
+                      Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
+                      Margin="5">
             <ListBox x:Name="VideoList"
                      BorderBrush="LightGray"
                      BorderThickness="1"
                      SelectionMode="Single"
                      AllowDrop="True"
                      Drop="VideoList_Drop" PreviewDragOver="VideoList_PreviewDragOver"
-                     ItemsSource="{Binding VideoFileNames}"/>
+                     ItemsSource="{Binding VideoFileNames}" />
         </ScrollViewer>
 
         <Button x:Name="VideoBrowseButton" Content="Browse..."
@@ -76,7 +76,7 @@
                  Grid.Column="0" Grid.Row="5"
                  Margin="5"
                  TextWrapping="NoWrap"
-                 Text="{Binding CascadeFileName}"/>
+                 Text="{Binding CascadeFileName}" />
 
         <Button x:Name="CascadeBrowseButton" Content="Browse..."
                 Grid.Column="1" Grid.Row="5"
@@ -89,7 +89,7 @@
                  Grid.Column="0" Grid.Row="6"
                  Margin="5"
                  TextWrapping="NoWrap"
-                 Text="{Binding OutputDirectryName}"/>
+                 Text="{Binding OutputDirectryName}" />
 
         <Button x:Name="DirectryBrowseButton" Content="Browse..."
                 Grid.Column="1" Grid.Row="6"
@@ -104,12 +104,14 @@
             </Grid.ColumnDefinitions>
             <Button x:Name="StartButton" Content="START"
                     Grid.Column="1"
-                    Margin="5" Height="Auto" />
+                    Margin="5" Height="Auto"
+                    IsEnabled="False" />
 
             <Button x:Name="CancelButton" Content="CANSEL"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Grid.Column="2"
-                    Margin="5" Height="Auto" />
+                    Margin="5" Height="Auto"
+                    IsEnabled="False" />
         </Grid>
     </Grid>
 </Window>
