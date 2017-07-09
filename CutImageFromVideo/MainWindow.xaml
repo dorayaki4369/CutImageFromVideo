@@ -113,5 +113,8 @@
                     Margin="5" Height="Auto"
                     IsEnabled="False" />
         </Grid>
+        <ProgressBar x:Name="ProgressBar"
+                     Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2"
+                     Margin="10" Height="Auto" />
     </Grid>
 </Window>
