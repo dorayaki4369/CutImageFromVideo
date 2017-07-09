@@ -4,12 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:cutImageFromMovie="clr-namespace:CutImageFromVideo"
+        xmlns:cutImageFromVideo="clr-namespace:CutImageFromVideo"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="525"
         ResizeMode="CanMinimize">
     <Window.DataContext>
-        <cutImageFromMovie:SettingData/>
+        <cutImageFromVideo:SettingData/>
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
@@ -75,11 +75,13 @@
                  materialDesign:HintAssist.Hint="Cascade file"
                  Grid.Column="0" Grid.Row="5"
                  Margin="5"
-                 TextWrapping="NoWrap" />
+                 TextWrapping="NoWrap"
+                 TextAlignment="Right"
+                 Text="{Binding CascadeFileName}"/>
 
         <Button x:Name="CascadeBrowseButton" Content="Browse..."
                 Grid.Column="1" Grid.Row="5"
-                Margin="5" Height="Auto" />
+                Margin="5" Height="Auto" Click="CascadeBrowseButton_Click" />
 
         <!--Browse Output Directry form-->
         <TextBox x:Name="DirectryBox"

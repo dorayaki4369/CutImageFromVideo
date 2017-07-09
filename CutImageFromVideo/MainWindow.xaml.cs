@@ -102,5 +102,27 @@ namespace CutImageFromVideo {
             var list = DataContext as SettingData;
             list?.VideoFileNames.Clear();
         }
+
+        /**
+         * Cascade : Browse
+         */
+        private void CascadeBrowseButton_Click(object sender, RoutedEventArgs e) {
+            var ofd = new OpenFileDialog {
+                Title = "Select Cascade file",
+                FileName = "*.xml",
+                Filter = "Cascade file|*.xml",
+                DefaultExt = "*.*"
+            };
+
+            var list = DataContext as SettingData;
+            if (ofd.ShowDialog() != true) return;
+            if (list != null) list.CascadeFileName.Value = ofd.FileName;
+            CascadeBox.Text = ofd.FileName;
+
+            //Right justified
+            CascadeBox.CaretIndex = CascadeBox.Text.Length;
+            var rect = CascadeBox.GetRectFromCharacterIndex(CascadeBox.CaretIndex);
+            CascadeBox.ScrollToHorizontalOffset(rect.Right);
+        }
     }
 }
