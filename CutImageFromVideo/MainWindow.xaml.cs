@@ -91,7 +91,8 @@ namespace CutImageFromVideo {
          */
         private void VideoDeleteButton_Click(object sender, RoutedEventArgs e) {
             var list = DataContext as SettingData;
-            list?.VideoFileNames.RemoveAt(VideoList.SelectedIndex);
+            if (VideoList.SelectedIndex == -1) return;
+            list?.VideoFileNames?.RemoveAt(VideoList.SelectedIndex);
         }
 
         /**
