@@ -1,4 +1,19 @@
-﻿using System.Text;
+﻿/**
+ * Copyright (c) 2017 Ryuya Hirayama All rights reserved.
+ * 
+ * The source is:
+ * 
+ * Copyright (c) James Willock,  Mulholland Software and Contributors
+ * https://github.com/ButchersBoy/MaterialDesignInXamlToolkit/blob/master/LICENSE
+ * 
+ * Copyright (c) 2017, shimat All rights reserved.
+ * https://github.com/shimat/opencvsharp/blob/master/LICENSE
+ * 
+ * Copyright (c) 2016 neuecc, xin9le, okazuki
+ * https://github.com/runceel/ReactiveProperty/blob/master/LICENSE.txt
+ */
+
+using System.Text;
 using System.Windows;
 using System.Windows.Forms;
 using DataFormats = System.Windows.DataFormats;
