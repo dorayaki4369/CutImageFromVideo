@@ -67,7 +67,7 @@
 
         <Button x:Name="VideoDeleteAllButton" Content="Delete All"
                 Grid.Column="1" Grid.Row="3"
-                Margin="5" Height="Auto" Click="VideoSelectAllButton_Click" />
+                Margin="5" Height="Auto" Click="VideoDeleteAllButton_Click" />
 
         <!--Browse Cascade file form-->
         <TextBox x:Name="CascadeBox"

@@ -87,19 +87,19 @@ namespace CutImageFromVideo {
         }
 
         /**
-         * Video : DeleteAll
-         */
-        private void VideoSelectAllButton_Click(object sender, RoutedEventArgs e) {
-            var list = DataContext as SettingData;
-            list?.VideoFileNames.Clear();
-        }
-
-        /**
          * Video : Delete
          */
         private void VideoDeleteButton_Click(object sender, RoutedEventArgs e) {
             var list = DataContext as SettingData;
             list?.VideoFileNames.RemoveAt(VideoList.SelectedIndex);
+        }
+
+        /**
+         * Video : DeleteAll
+         */
+        private void VideoDeleteAllButton_Click(object sender, RoutedEventArgs e) {
+            var list = DataContext as SettingData;
+            list?.VideoFileNames.Clear();
         }
     }
 }
