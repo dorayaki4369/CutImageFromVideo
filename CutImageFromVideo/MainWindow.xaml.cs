@@ -87,10 +87,11 @@ namespace CutImageFromVideo {
         }
 
         /**
-         * Video : SelectAll
+         * Video : DeleteAll
          */
         private void VideoSelectAllButton_Click(object sender, RoutedEventArgs e) {
-            VideoList.SelectAll();
+            var list = DataContext as SettingData;
+            list?.VideoFileNames.Clear();
         }
 
         /**
