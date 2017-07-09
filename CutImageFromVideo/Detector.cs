@@ -58,7 +58,7 @@ namespace CutImageFromVideo {
 
         //Save image
         private void SaveImg(IEnumerable<Mat> mats) {
-            Cv2.NamedWindow("image", WindowMode.AutoSize);
+            Cv2.NamedWindow("image", WindowMode.FreeRatio);
             var sb = new StringBuilder();
 
             foreach (var mat in mats) {
