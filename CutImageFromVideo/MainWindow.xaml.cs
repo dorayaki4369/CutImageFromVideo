@@ -98,19 +98,6 @@ namespace CutImageFromVideo {
          * Video : Delete
          */
         private void VideoDeleteButton_Click(object sender, RoutedEventArgs e) {
-            //var deleteList = new string[20];
-            //VideoList.SelectedItems.CopyTo(deleteList, 0);
-            //var list = DataContext as SettingData;
-            //if (list == null) return;
-            //foreach (var item in list.VideoFileNames) {
-            //    foreach (var element in deleteList) {
-            //        if (element == null) return;
-            //        if (element.Equals(item)) {
-            //            list.VideoFileNames.Remove(item);
-            //        }
-            //    }
-            //}
-
             var list = DataContext as SettingData;
             list?.VideoFileNames.RemoveAt(VideoList.SelectedIndex);
         }
