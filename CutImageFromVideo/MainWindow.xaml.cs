@@ -129,6 +129,11 @@ namespace CutImageFromVideo {
             var list = DataContext as SettingData;
             if (list != null) list.OutputDirectryName.Value = dialog.SelectedPath;
             DirectryBox.Text = dialog.SelectedPath;
+
+            //Right justified
+            DirectryBox.CaretIndex = DirectryBox.Text.Length;
+            var rect = DirectryBox.GetRectFromCharacterIndex(DirectryBox.CaretIndex);
+            DirectryBox.ScrollToHorizontalOffset(rect.Right);
         }
     }
 }
