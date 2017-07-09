@@ -46,11 +46,12 @@ namespace CutImageFromVideo {
             Cv2.EqualizeHist(grayImage, grayImage);
 
             //Face recognition, Small faces excluded
-            using (var cascade = new CascadeClassifier(settingData.CascadeFileName.Value)) {//Load cascade
+            using (var cascade = new CascadeClassifier(settingData.CascadeFileName.Value)) {
                 var mats = cascade.DetectMultiScale(grayImage, 1.1, 3, 0, new Size(80, 80))
-                    .Select(rect => new Rect(rect.X, rect.Y, rect.Width, rect.Height))//Make rects focusing on facial parts
-                    .Select(image.Clone)//Imaged cut out
-                    .ToList();//Listing
+                    .Select(rect => new Rect(rect.X, rect.Y, rect.Width,
+                        rect.Height)) //Make rects focusing on facial parts
+                    .Select(image.Clone) //Imaged cut out
+                    .ToList(); //Listing
 
                 SaveImg(mats);
             }
@@ -59,12 +60,12 @@ namespace CutImageFromVideo {
         //Save image
         private void SaveImg(IEnumerable<Mat> mats) {
             Cv2.NamedWindow("image", WindowMode.FreeRatio);
-            var sb = new StringBuilder();
 
+            var sb = new StringBuilder();
+            sb.Append(settingData.OutputDirectryName.Value).Append("\\")
+                .Append("image");
             foreach (var mat in mats) {
-                sb.Append("Iamges\\")
-                    .Append("image")
-                    .AppendFormat("{0:D5}", _imgnum)
+                sb.AppendFormat("{0:D5}", _imgnum)
                     .Append(".png");
 
                 //Save
