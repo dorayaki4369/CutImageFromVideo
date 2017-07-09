@@ -35,24 +35,27 @@
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        
+
         <!--Select Video form-->
         <TextBlock x:Name="VideoTextBox" Text="Videos:"
                    Style="{StaticResource MaterialDesignTitleTextBlock}"
                    Grid.Column="0" Grid.Row="0"
-                   VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                   Margin="6,5,0,0" Width="Auto" />
+                   Margin="5"
+                   VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
 
-        <ListBox x:Name="VideoList"
-                 BorderBrush="DarkGray"
-                 BorderThickness="1"
-                 Margin="5"
-                 Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
-                 ScrollViewer.CanContentScroll="False"
-                 SelectionMode="Multiple"
-                 AllowDrop="True"
-                 Drop="VideoList_Drop" PreviewDragOver="VideoList_PreviewDragOver"
-                 ItemsSource="{Binding VideoFileNames}"/>
+        <ScrollViewer x:Name="VideoScrollViewer"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto"
+            Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
+            Margin="5">
+            <ListBox x:Name="VideoList"
+                     BorderBrush="DarkGray"
+                     BorderThickness="1"
+                     SelectionMode="Multiple"
+                     AllowDrop="True"
+                     Drop="VideoList_Drop" PreviewDragOver="VideoList_PreviewDragOver"
+                     ItemsSource="{Binding VideoFileNames}"/>
+        </ScrollViewer>
 
         <Button x:Name="VideoBrowseButton" Content="Browse..."
                 Grid.Column="1" Grid.Row="1"

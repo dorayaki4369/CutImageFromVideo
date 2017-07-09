@@ -36,6 +36,8 @@ namespace CutImageFromVideo {
             foreach (var s in files) {
                 list?.VideoFileNames.Add(s);
             }
+
+            VideoScrollViewer.ScrollToRightEnd();
         }
 
         private void VideoList_PreviewDragOver(object sender, DragEventArgs e) {
@@ -60,6 +62,8 @@ namespace CutImageFromVideo {
             if (ofd.ShowDialog() == true) {
                 list?.VideoFileNames.Add(ofd.FileName);
             }
+
+            VideoScrollViewer.ScrollToRightEnd();
         }
 
         //Create video container format
