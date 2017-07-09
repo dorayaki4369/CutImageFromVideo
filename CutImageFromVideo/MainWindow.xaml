@@ -76,7 +76,6 @@
                  Grid.Column="0" Grid.Row="5"
                  Margin="5"
                  TextWrapping="NoWrap"
-                 TextAlignment="Right"
                  Text="{Binding CascadeFileName}"/>
 
         <Button x:Name="CascadeBrowseButton" Content="Browse..."
