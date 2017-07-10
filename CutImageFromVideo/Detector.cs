@@ -70,12 +70,12 @@ namespace CutImageFromVideo {
 
             //Face recognition, Small faces excluded
             var mats = Cascade.DetectMultiScale(grayImage, 1.1, 3, 0, new Size(80, 80))
-                //Make rects focusing on facial parts
-                .Select(rect => new Rect(rect.X, rect.Y, rect.Width, rect.Height))
-                //Imaged cut out
-                .Select(image.Clone)
-                //Listing
-                .ToList();
+                              //Make rects focusing on facial parts
+                              .Select(rect => new Rect(rect.X, rect.Y, rect.Width, rect.Height))
+                              //Imaged cut out
+                              .Select(image.Clone)
+                              //Listing
+                              .ToList();
 
             SaveImg(mats);
 

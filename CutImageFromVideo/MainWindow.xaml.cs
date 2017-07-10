@@ -179,19 +179,20 @@ namespace CutImageFromVideo {
         }
 
         private Detector _detector;
+
         /**
          * StartButton : Click
          */
         private void StartButton_Click(object sender, RoutedEventArgs e) {
-            ChangeButtonEnabled(false);
+            ChangeEnabledInButtons(false);
 
             _detector = new Detector(DataContext as SettingData);
             _detector.Run();
 
-            ChangeButtonEnabled(true);
+            ChangeEnabledInButtons(true);
         }
 
-        private void ChangeButtonEnabled(bool b) {
+        private void ChangeEnabledInButtons(bool b) {
             //button
             VideoBrowseButton.IsEnabled = b;
             VideoDeleteButton.IsEnabled = b;
@@ -200,7 +201,7 @@ namespace CutImageFromVideo {
             CascadeBrowseButton.IsEnabled = b;
             DirectryBrowseButton.IsEnabled = b;
             StartButton.IsEnabled = b;
-            CancelButton.IsEnabled = !b;
+            CancelButton.IsEnabled = !b; //Attention!
 
             //list and box
             VideoList.IsEnabled = b;
