@@ -76,7 +76,7 @@
                  Grid.Column="0" Grid.Row="5"
                  Margin="5"
                  TextWrapping="NoWrap"
-                 Text="{Binding CascadeFileName}" />
+                 Text="{Binding CascadeFileName,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Button x:Name="CascadeBrowseButton" Content="Browse..."
                 Grid.Column="1" Grid.Row="5"
@@ -89,7 +89,7 @@
                  Grid.Column="0" Grid.Row="6"
                  Margin="5"
                  TextWrapping="NoWrap"
-                 Text="{Binding OutputDirectryName}" />
+                 Text="{Binding OutputDirectryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <Button x:Name="DirectryBrowseButton" Content="Browse..."
                 Grid.Column="1" Grid.Row="6"

@@ -6,15 +6,35 @@ using CutImageFromVideo.Annotations;
 using Reactive.Bindings;
 
 namespace CutImageFromVideo {
-    public class SettingData {
+    public class SettingData : INotifyPropertyChanged {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void SetProperty<T>([NotNull] ref T field, [NotNull] T value, [CallerMemberName] string propertyName = null) {
+            //if (field == null) throw new ArgumentNullException(nameof(field));
+
+            field = value;
+            var h = PropertyChanged;
+            h?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public ObservableCollection<string> VideoFileNames { get; private set; }
-        public ReactiveProperty<string> CascadeFileName { get; set; }
-        public ReactiveProperty<string> OutputDirectryName { get; set; }
+
+        private string _cascadeFileName;
+
+        public string CascadeFileName {
+            get { return _cascadeFileName; }
+            set { SetProperty(ref _cascadeFileName, value); }
+        }
+
+        private string _outputDirectryName;
+
+        public string OutputDirectryName {
+            get { return _outputDirectryName; }
+            set { SetProperty(ref _outputDirectryName, value); }
+        }
 
         public SettingData() {
             VideoFileNames = new ObservableCollection<string>();
-            CascadeFileName = new ReactiveProperty<string>();
-            OutputDirectryName = new ReactiveProperty<string>();
         }
     }
 }

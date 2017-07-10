@@ -15,8 +15,8 @@ namespace CutImageFromVideo {
 
         public Detector(SettingData settingData) {
             SettingData = settingData;
-            Cascade = new CascadeClassifier(SettingData.CascadeFileName.Value);
-            Outputfile = new StringBuilder(settingData.OutputDirectryName.Value).Append("\\").ToString();
+            Cascade = new CascadeClassifier(SettingData.CascadeFileName);
+            Outputfile = new StringBuilder(settingData.OutputDirectryName).Append("\\").ToString();
             Framenum = 0;
             Imgnum = 0;
             IsExitStatus = false;

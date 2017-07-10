@@ -130,7 +130,7 @@ namespace CutImageFromVideo {
 
             var list = DataContext as SettingData;
             if (ofd.ShowDialog() != true) return;
-            if (list != null) list.CascadeFileName.Value = ofd.FileName;
+            if (list != null) list.CascadeFileName = ofd.FileName;
             CascadeBox.Text = ofd.FileName;
 
             //Right justified
@@ -151,7 +151,7 @@ namespace CutImageFromVideo {
 
             if (dialog.ShowDialog() != Forms.DialogResult.OK) return;
             var list = DataContext as SettingData;
-            if (list != null) list.OutputDirectryName.Value = dialog.SelectedPath;
+            if (list != null) list.OutputDirectryName = dialog.SelectedPath;
             DirectryBox.Text = dialog.SelectedPath;
 
             //Right justified
