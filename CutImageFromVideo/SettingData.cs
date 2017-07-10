@@ -9,7 +9,8 @@ namespace CutImageFromVideo {
     public class SettingData : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void SetProperty<T>([NotNull] ref T field, [NotNull] T value, [CallerMemberName] string propertyName = null) {
+        private void SetProperty<T>([NotNull] ref T field, [NotNull] T value,
+                                    [CallerMemberName] string propertyName = null) {
             //if (field == null) throw new ArgumentNullException(nameof(field));
 
             field = value;
@@ -31,6 +32,20 @@ namespace CutImageFromVideo {
         public string OutputDirectryName {
             get { return _outputDirectryName; }
             set { SetProperty(ref _outputDirectryName, value); }
+        }
+
+        private int _totalFrameNum;
+
+        public int TotalFrameNum {
+            get { return _totalFrameNum; }
+            set { SetProperty(ref _totalFrameNum, value); }
+        }
+
+        private int _currentFrameNum;
+
+        public int CurrentFrameNum {
+            get { return _currentFrameNum; }
+            set { SetProperty(ref _currentFrameNum, value); }
         }
 
         public SettingData() {

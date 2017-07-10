@@ -119,6 +119,9 @@
         </Grid>
         <ProgressBar x:Name="ProgressBar"
                      Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2"
-                     Margin="10" Height="Auto" />
+                     Margin="10" Height="Auto"
+                     Minimum="0"
+                     Maximum="{Binding TotalFrameNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Value="{Binding CurrentFrameNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </Window>

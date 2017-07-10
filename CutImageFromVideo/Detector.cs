@@ -9,16 +9,18 @@ namespace CutImageFromVideo {
         private SettingData SettingData { get; }
         private CascadeClassifier Cascade { get; }
         private string Outputfile { get; }
-        private int Framenum { get; set; }
-        private int Imgnum { get; set; }
+        private int TotalFrameNum { get; set; }
+        private int FrameNum { get; set; }
+        private int ImgNum { get; set; }
         private bool IsExitStatus { get; set; }
 
         public Detector(SettingData settingData) {
             SettingData = settingData;
             Cascade = new CascadeClassifier(SettingData.CascadeFileName);
             Outputfile = new StringBuilder(settingData.OutputDirectryName).Append("\\").ToString();
-            Framenum = 0;
-            Imgnum = 0;
+            TotalFrameNum = 0;
+            FrameNum = 0;
+            ImgNum = 0;
             IsExitStatus = false;
         }
 
@@ -32,10 +34,18 @@ namespace CutImageFromVideo {
             Cv2.NamedWindow("image", WindowMode.FreeRatio);
 
             foreach (var videoName in SettingData.VideoFileNames) {
+                using (var video = new VideoCapture(videoName)) {
+                    TotalFrameNum += video.FrameCount;
+                }
+                SettingData.TotalFrameNum = TotalFrameNum;
+            }
+
+            foreach (var videoName in SettingData.VideoFileNames) {
                 using (var video = VideoCapture.FromFile(videoName)) {
                     while (true) {
                         using (var frame = video.RetrieveMat()) {
-                            Framenum++;
+                            FrameNum++;
+                            SettingData.CurrentFrameNum = FrameNum;
 
                             if (frame.Empty() || IsExitStatus) {
                                 Console.WriteLine(@"Cancel");
@@ -46,7 +56,7 @@ namespace CutImageFromVideo {
 
                             //Detecting every 10 frames because the number of images
                             //increases too much when cutting out all frames
-                            if (Framenum % 10 == 0) DetectAndSaveImg(frame);
+                            if (FrameNum % 10 == 0) DetectAndSaveImg(frame);
 
                             frame.Dispose();
                         }
@@ -88,9 +98,9 @@ namespace CutImageFromVideo {
             foreach (var mat in mats) {
                 var sb = new StringBuilder(Outputfile)
                     .Append("image")
-                    .AppendFormat("{0:D5}", Imgnum)
+                    .AppendFormat("{0:D5}", ImgNum)
                     .Append(".png");
-                Imgnum++;
+                ImgNum++;
 
                 //Save
                 Cv2.ImWrite(sb.ToString(), mat);
