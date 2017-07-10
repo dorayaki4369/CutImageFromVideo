@@ -48,9 +48,11 @@ namespace CutImageFromVideo {
                             SettingData.CurrentFrameNum = FrameNum;
 
                             if (frame.Empty() || IsExitStatus) {
-                                Console.WriteLine(@"Cancel");
+                                if (IsExitStatus) {
+                                    Console.WriteLine(@"Cancel");
+                                    IsExitStatus = false;
+                                }
                                 frame.Dispose();
-                                IsExitStatus = false;
                                 break;
                             }
 
