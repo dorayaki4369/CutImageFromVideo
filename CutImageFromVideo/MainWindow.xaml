@@ -105,13 +105,17 @@
             <Button x:Name="StartButton" Content="START"
                     Grid.Column="1"
                     Margin="5" Height="Auto"
-                    IsEnabled="False" Click="StartButton_Click" />
+                    IsEnabled="False"
+                    IsDefault="True"
+                    Click="StartButton_Click" />
 
             <Button x:Name="CancelButton" Content="CANSEL"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Grid.Column="2"
                     Margin="5" Height="Auto"
-                    IsEnabled="False" />
+                    IsEnabled="False"
+                    IsCancel="True"
+                    Click="CancelButton_Click" />
         </Grid>
         <ProgressBar x:Name="ProgressBar"
                      Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2"

@@ -6,34 +6,41 @@ using OpenCvSharp;
 
 namespace CutImageFromVideo {
     public class Detector {
-        private readonly SettingData settingData;
+        private readonly SettingData _settingData;
+        private readonly CascadeClassifier _cascade;
+        private readonly string _outputfile;
         private int _framenum = 0;
         private int _imgnum = 0;
 
         public Detector(SettingData settingData) {
-            this.settingData = settingData;
+            _settingData = settingData;
+            _cascade = new CascadeClassifier(_settingData.CascadeFileName.Value);
+            _outputfile = new StringBuilder(settingData.OutputDirectryName.Value).Append("\\").ToString();
         }
 
         public void Run() {
             Console.WriteLine(@"Creating face image...");
 
-            foreach (var videoName in settingData.VideoFileNames) {
+            Cv2.NamedWindow("image", WindowMode.FreeRatio);
+
+            foreach (var videoName in _settingData.VideoFileNames) {
                 using (var video = VideoCapture.FromFile(videoName)) {
                     while (true) {
                         using (var frame = video.RetrieveMat()) {
                             _framenum++;
-                            if (frame.Empty()) {
-                                Console.WriteLine(@"End of video");
-                                break;
-                            }
+
+                            if (frame.Empty()) break;
 
                             //Detecting every 10 frames because the number of images
                             //increases too much when cutting out all frames
                             if (_framenum % 10 == 0) DetectAndSaveImg(frame);
                         }
                     }
+                    Console.WriteLine(@"End of video");
                 }
             }
+
+            Cv2.DestroyAllWindows();
         }
 
         //Face detection
@@ -46,35 +53,36 @@ namespace CutImageFromVideo {
             Cv2.EqualizeHist(grayImage, grayImage);
 
             //Face recognition, Small faces excluded
-            using (var cascade = new CascadeClassifier(settingData.CascadeFileName.Value)) {
-                var mats = cascade.DetectMultiScale(grayImage, 1.1, 3, 0, new Size(80, 80))
-                    .Select(rect => new Rect(rect.X, rect.Y, rect.Width,
-                        rect.Height)) //Make rects focusing on facial parts
-                    .Select(image.Clone) //Imaged cut out
-                    .ToList(); //Listing
+            var mats = _cascade.DetectMultiScale(grayImage, 1.1, 3, 0, new Size(80, 80))
+                //Make rects focusing on facial parts
+                .Select(rect => new Rect(rect.X, rect.Y, rect.Width, rect.Height))
+                //Imaged cut out
+                .Select(image.Clone)
+                //Listing
+                .ToList();
 
-                SaveImg(mats);
-            }
+            SaveImg(mats);
+
+            mats.Clear();
         }
 
         //Save image
         private void SaveImg(IEnumerable<Mat> mats) {
-            Cv2.NamedWindow("image", WindowMode.FreeRatio);
-
-            var sb = new StringBuilder();
-            sb.Append(settingData.OutputDirectryName.Value).Append("\\")
-                .Append("image");
             foreach (var mat in mats) {
-                sb.AppendFormat("{0:D5}", _imgnum)
+                var sb = new StringBuilder(_outputfile)
+                    .Append("image")
+                    .AppendFormat("{0:D5}", _imgnum)
                     .Append(".png");
+                _imgnum++;
 
                 //Save
                 Cv2.ImWrite(sb.ToString(), mat);
-                _imgnum++;
 
                 //Show cuted image
                 Cv2.ImShow("image", mat);
                 Cv2.WaitKey(1);
+
+                mat.Dispose();
             }
         }
     }

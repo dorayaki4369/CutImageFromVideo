@@ -45,7 +45,7 @@ namespace CutImageFromVideo {
 
             VideoScrollViewer.ScrollToRightEnd();
 
-            CheckStartButtonEnablded();
+            CheckStartButtonEnabled();
         }
 
         private void VideoList_PreviewDragOver(object sender, DragEventArgs e) {
@@ -73,7 +73,7 @@ namespace CutImageFromVideo {
 
             VideoScrollViewer.ScrollToRightEnd();
 
-            CheckStartButtonEnablded();
+            CheckStartButtonEnabled();
         }
 
         //Create video container format
@@ -104,7 +104,7 @@ namespace CutImageFromVideo {
             if (VideoList.SelectedIndex == -1) return;
             list?.VideoFileNames?.RemoveAt(VideoList.SelectedIndex);
 
-            CheckStartButtonEnablded();
+            CheckStartButtonEnabled();
         }
 
         /**
@@ -138,7 +138,7 @@ namespace CutImageFromVideo {
             var rect = CascadeBox.GetRectFromCharacterIndex(CascadeBox.CaretIndex);
             CascadeBox.ScrollToHorizontalOffset(rect.Right);
 
-            CheckStartButtonEnablded();
+            CheckStartButtonEnabled();
         }
 
         /**
@@ -159,13 +159,13 @@ namespace CutImageFromVideo {
             var rect = DirectryBox.GetRectFromCharacterIndex(DirectryBox.CaretIndex);
             DirectryBox.ScrollToHorizontalOffset(rect.Right);
 
-            CheckStartButtonEnablded();
+            CheckStartButtonEnabled();
         }
 
         /**
          * StartButton : Check
          */
-        private void CheckStartButtonEnablded() {
+        private void CheckStartButtonEnabled() {
             var list = DataContext as SettingData;
             if (list != null
                 && list.VideoFileNames.Count != 0
@@ -182,8 +182,33 @@ namespace CutImageFromVideo {
          * StartButton : Click
          */
         private void StartButton_Click(object sender, RoutedEventArgs e) {
+            ChangeButtonEnabled(false);
+
             var detector = new Detector(DataContext as SettingData);
             detector.Run();
+
+            ChangeButtonEnabled(true);
+        }
+
+        private void ChangeButtonEnabled(bool b) {
+            //button
+            VideoBrowseButton.IsEnabled = b;
+            VideoDeleteButton.IsEnabled = b;
+            VideoBrowseButton.IsEnabled = b;
+            VideoDeleteAllButton.IsEnabled = b;
+            CascadeBrowseButton.IsEnabled = b;
+            DirectryBrowseButton.IsEnabled = b;
+            StartButton.IsEnabled = b;
+            CancelButton.IsEnabled = !b;
+
+            //list and box
+            VideoList.IsEnabled = b;
+            CascadeBox.IsEnabled = b;
+            DirectryBox.IsEnabled = b;
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e) {
+            
         }
     }
 }
