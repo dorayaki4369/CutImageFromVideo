@@ -6,24 +6,24 @@ using OpenCvSharp;
 
 namespace CutImageFromVideo {
     public class Detector {
-        private readonly SettingData _settingData;
-        private readonly CascadeClassifier _cascade;
-        private readonly string _outputfile;
-        private int _framenum;
-        private int _imgnum;
-        private bool _isExitStatus;
+        private SettingData SettingData { get; }
+        private CascadeClassifier Cascade { get; }
+        private string Outputfile { get; }
+        private int Framenum { get; set; }
+        private int Imgnum { get; set; }
+        private bool IsExitStatus { get; set; }
 
         public Detector(SettingData settingData) {
-            _settingData = settingData;
-            _cascade = new CascadeClassifier(_settingData.CascadeFileName.Value);
-            _outputfile = new StringBuilder(settingData.OutputDirectryName.Value).Append("\\").ToString();
-            _framenum = 0;
-            _imgnum = 0;
-            _isExitStatus = false;
+            SettingData = settingData;
+            Cascade = new CascadeClassifier(SettingData.CascadeFileName.Value);
+            Outputfile = new StringBuilder(settingData.OutputDirectryName.Value).Append("\\").ToString();
+            Framenum = 0;
+            Imgnum = 0;
+            IsExitStatus = false;
         }
 
         public void Stop() {
-            _isExitStatus = true;
+            IsExitStatus = true;
         }
 
         public void Run() {
@@ -31,22 +31,22 @@ namespace CutImageFromVideo {
 
             Cv2.NamedWindow("image", WindowMode.FreeRatio);
 
-            foreach (var videoName in _settingData.VideoFileNames) {
+            foreach (var videoName in SettingData.VideoFileNames) {
                 using (var video = VideoCapture.FromFile(videoName)) {
                     while (true) {
                         using (var frame = video.RetrieveMat()) {
-                            _framenum++;
+                            Framenum++;
 
-                            if (frame.Empty() || _isExitStatus) {
+                            if (frame.Empty() || IsExitStatus) {
                                 Console.WriteLine(@"Cancel");
                                 frame.Dispose();
-                                _isExitStatus = false;
+                                IsExitStatus = false;
                                 break;
                             }
 
                             //Detecting every 10 frames because the number of images
                             //increases too much when cutting out all frames
-                            if (_framenum % 10 == 0) DetectAndSaveImg(frame);
+                            if (Framenum % 10 == 0) DetectAndSaveImg(frame);
 
                             frame.Dispose();
                         }
@@ -56,7 +56,7 @@ namespace CutImageFromVideo {
             }
 
             Cv2.DestroyAllWindows();
-            _cascade.Dispose();
+            Cascade.Dispose();
         }
 
         //Face detection
@@ -69,7 +69,7 @@ namespace CutImageFromVideo {
             Cv2.EqualizeHist(grayImage, grayImage);
 
             //Face recognition, Small faces excluded
-            var mats = _cascade.DetectMultiScale(grayImage, 1.1, 3, 0, new Size(80, 80))
+            var mats = Cascade.DetectMultiScale(grayImage, 1.1, 3, 0, new Size(80, 80))
                 //Make rects focusing on facial parts
                 .Select(rect => new Rect(rect.X, rect.Y, rect.Width, rect.Height))
                 //Imaged cut out
@@ -86,11 +86,11 @@ namespace CutImageFromVideo {
         //Save image
         private void SaveImg(IEnumerable<Mat> mats) {
             foreach (var mat in mats) {
-                var sb = new StringBuilder(_outputfile)
+                var sb = new StringBuilder(Outputfile)
                     .Append("image")
-                    .AppendFormat("{0:D5}", _imgnum)
+                    .AppendFormat("{0:D5}", Imgnum)
                     .Append(".png");
-                _imgnum++;
+                Imgnum++;
 
                 //Save
                 Cv2.ImWrite(sb.ToString(), mat);

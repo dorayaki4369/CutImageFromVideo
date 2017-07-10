@@ -209,6 +209,9 @@ namespace CutImageFromVideo {
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e) {
+            //As you can see from the Detector,
+            //there is no need to do anything particularly
+            //because button activation is done after this.
             _detector.Stop();
         }
     }
