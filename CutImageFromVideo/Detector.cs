@@ -11,6 +11,7 @@ namespace CutImageFromVideo {
         private readonly string _outputfile;
         private int _framenum;
         private int _imgnum;
+        private bool _isExitStatus;
 
         public Detector(SettingData settingData) {
             _settingData = settingData;
@@ -18,6 +19,11 @@ namespace CutImageFromVideo {
             _outputfile = new StringBuilder(settingData.OutputDirectryName.Value).Append("\\").ToString();
             _framenum = 0;
             _imgnum = 0;
+            _isExitStatus = false;
+        }
+
+        public void Stop() {
+            _isExitStatus = true;
         }
 
         public void Run() {
@@ -31,7 +37,12 @@ namespace CutImageFromVideo {
                         using (var frame = video.RetrieveMat()) {
                             _framenum++;
 
-                            if (frame.Empty()) break;
+                            if (frame.Empty() || _isExitStatus) {
+                                Console.WriteLine(@"Cancel");
+                                frame.Dispose();
+                                _isExitStatus = false;
+                                break;
+                            }
 
                             //Detecting every 10 frames because the number of images
                             //increases too much when cutting out all frames

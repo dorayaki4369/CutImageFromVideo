@@ -178,14 +178,15 @@ namespace CutImageFromVideo {
             }
         }
 
+        private Detector _detector;
         /**
          * StartButton : Click
          */
         private void StartButton_Click(object sender, RoutedEventArgs e) {
             ChangeButtonEnabled(false);
 
-            var detector = new Detector(DataContext as SettingData);
-            detector.Run();
+            _detector = new Detector(DataContext as SettingData);
+            _detector.Run();
 
             ChangeButtonEnabled(true);
         }
@@ -208,7 +209,7 @@ namespace CutImageFromVideo {
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e) {
-            
+            _detector.Stop();
         }
     }
 }
