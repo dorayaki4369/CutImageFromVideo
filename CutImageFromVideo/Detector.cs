@@ -9,8 +9,6 @@ namespace CutImageFromVideo {
         private SettingData SettingData { get; }
         private CascadeClassifier Cascade { get; }
         private string Outputfile { get; }
-        private int TotalFrameNum { get; set; }
-        private int FrameNum { get; set; }
         private int ImgNum { get; set; }
         private bool IsExitStatus { get; set; }
 
@@ -18,8 +16,6 @@ namespace CutImageFromVideo {
             SettingData = settingData;
             Cascade = new CascadeClassifier(SettingData.CascadeFileName);
             Outputfile = new StringBuilder(settingData.OutputDirectryName).Append("\\").ToString();
-            TotalFrameNum = 0;
-            FrameNum = 0;
             ImgNum = 0;
             IsExitStatus = false;
         }
@@ -30,42 +26,43 @@ namespace CutImageFromVideo {
 
         public void Run() {
             Console.WriteLine(@"Creating face image...");
+            SettingData.TotalFrameNum = 0;
+            SettingData.CurrentFrameNum = 0;
+
+            foreach (var videoName in SettingData.VideoFileNames) {
+                using (var video = new VideoCapture(videoName)) {
+                    SettingData.TotalFrameNum += video.FrameCount;
+                }
+            }
 
             Cv2.NamedWindow("image", WindowMode.FreeRatio);
 
             foreach (var videoName in SettingData.VideoFileNames) {
-                using (var video = new VideoCapture(videoName)) {
-                    TotalFrameNum += video.FrameCount;
-                }
-                SettingData.TotalFrameNum = TotalFrameNum;
-            }
-
-            foreach (var videoName in SettingData.VideoFileNames) {
                 using (var video = VideoCapture.FromFile(videoName)) {
+                    var frameNum = 0;
                     while (true) {
                         using (var frame = video.RetrieveMat()) {
-                            FrameNum++;
-                            SettingData.CurrentFrameNum = FrameNum;
-
                             if (frame.Empty() || IsExitStatus) {
                                 if (IsExitStatus) {
                                     Console.WriteLine(@"Cancel");
                                     IsExitStatus = false;
+                                    goto CANCEL;
                                 }
-                                frame.Dispose();
                                 break;
                             }
 
+                            frameNum++;
+                            SettingData.CurrentFrameNum++;
+
                             //Detecting every 10 frames because the number of images
                             //increases too much when cutting out all frames
-                            if (FrameNum % 10 == 0) DetectAndSaveImg(frame);
-
-                            frame.Dispose();
+                            if (frameNum % 10 == 0) DetectAndSaveImg(frame);
                         }
                     }
                     Console.WriteLine(@"End of video");
                 }
             }
+            CANCEL:
 
             Cv2.DestroyAllWindows();
             Cascade.Dispose();
@@ -74,25 +71,23 @@ namespace CutImageFromVideo {
         //Face detection
         private void DetectAndSaveImg(Mat image) {
             //Image to gray scale
-            var grayImage = new Mat();
-            Cv2.CvtColor(image, grayImage, ColorConversionCodes.BGR2GRAY);
+            using (var grayImage = new Mat()) {
+                Cv2.CvtColor(image, grayImage, ColorConversionCodes.BGR2GRAY);
 
-            //Flattening the histogram
-            Cv2.EqualizeHist(grayImage, grayImage);
+                //Flattening the histogram
+                Cv2.EqualizeHist(grayImage, grayImage);
 
-            //Face recognition, Small faces excluded
-            var mats = Cascade.DetectMultiScale(grayImage, 1.1, 3, 0, new Size(80, 80))
-                              //Make rects focusing on facial parts
-                              .Select(rect => new Rect(rect.X, rect.Y, rect.Width, rect.Height))
-                              //Imaged cut out
-                              .Select(image.Clone)
-                              //Listing
-                              .ToList();
+                //Face recognition, Small faces excluded
+                var mats = Cascade.DetectMultiScale(grayImage, 1.1, 3, 0, new Size(80, 80))
+                                  //Make rects focusing on facial parts
+                                  .Select(rect => new Rect(rect.X, rect.Y, rect.Width, rect.Height))
+                                  //Imaged cut out
+                                  .Select(image.Clone)
+                                  //Listing
+                                  .ToList();
 
-            SaveImg(mats);
-
-            grayImage.Dispose();
-            mats.Clear();
+                SaveImg(mats);
+            }
         }
 
         //Save image
