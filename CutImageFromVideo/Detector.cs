@@ -9,13 +9,15 @@ namespace CutImageFromVideo {
         private readonly SettingData _settingData;
         private readonly CascadeClassifier _cascade;
         private readonly string _outputfile;
-        private int _framenum = 0;
-        private int _imgnum = 0;
+        private int _framenum;
+        private int _imgnum;
 
         public Detector(SettingData settingData) {
             _settingData = settingData;
             _cascade = new CascadeClassifier(_settingData.CascadeFileName.Value);
             _outputfile = new StringBuilder(settingData.OutputDirectryName.Value).Append("\\").ToString();
+            _framenum = 0;
+            _imgnum = 0;
         }
 
         public void Run() {
@@ -34,6 +36,8 @@ namespace CutImageFromVideo {
                             //Detecting every 10 frames because the number of images
                             //increases too much when cutting out all frames
                             if (_framenum % 10 == 0) DetectAndSaveImg(frame);
+
+                            frame.Dispose();
                         }
                     }
                     Console.WriteLine(@"End of video");
@@ -41,6 +45,7 @@ namespace CutImageFromVideo {
             }
 
             Cv2.DestroyAllWindows();
+            _cascade.Dispose();
         }
 
         //Face detection
@@ -63,6 +68,7 @@ namespace CutImageFromVideo {
 
             SaveImg(mats);
 
+            grayImage.Dispose();
             mats.Clear();
         }
 
