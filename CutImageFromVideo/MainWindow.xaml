@@ -1,12 +1,15 @@
-﻿<Window x:Class="CutImageFromVideo.MainWindow"
+﻿<Controls:MetroWindow x:Class="CutImageFromVideo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:CutImageFromVideo"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:cutImageFromVideo="clr-namespace:CutImageFromVideo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="525"
+        Title="MainWindow"
+        Height="600" Width="525"
         ResizeMode="CanMinimize">
     <Window.DataContext>
         <cutImageFromVideo:SettingData TotalFrameNum="1" CurrentFrameNum="0" />
@@ -124,4 +127,4 @@
                      Maximum="{Binding TotalFrameNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Value="{Binding CurrentFrameNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
-</Window>
+</Controls:MetroWindow>

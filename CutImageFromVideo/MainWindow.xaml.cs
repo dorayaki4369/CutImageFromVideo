@@ -13,6 +13,7 @@
 using System.Text;
 using System.Windows;
 using System.Windows.Forms;
+using MahApps.Metro.Controls.Dialogs;
 using DataFormats = System.Windows.DataFormats;
 using DragDropEffects = System.Windows.DragDropEffects;
 using DragEventArgs = System.Windows.DragEventArgs;
@@ -23,7 +24,7 @@ namespace CutImageFromVideo {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window {
+    public partial class MainWindow {
         public MainWindow() {
             InitializeComponent();
         }
@@ -180,11 +181,13 @@ namespace CutImageFromVideo {
         /**
          * StartButton : Click
          */
-        private void StartButton_Click(object sender, RoutedEventArgs e) {
+        private async void StartButton_Click(object sender, RoutedEventArgs e) {
             ChangeEnabledInButtons(false);
 
             _detector = new Detector(DataContext as SettingData);
             _detector.Run();
+            var list = DataContext as SettingData;
+            await this.ShowMessageAsync("Finish!", "Total frame number = " + list?.TotalFrameNum.ToString());
 
             ChangeEnabledInButtons(true);
         }
