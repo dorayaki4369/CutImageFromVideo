@@ -3,6 +3,9 @@
  * 
  * The source is:
  * 
+ * Copyright (c) 2016 MahApps
+ * https://github.com/MahApps/MahApps.Metro/blob/master/LICENSE
+ * 
  * Copyright (c) James Willock,  Mulholland Software and Contributors
  * https://github.com/ButchersBoy/MaterialDesignInXamlToolkit/blob/master/LICENSE
  * 
