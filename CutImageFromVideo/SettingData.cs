@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using CutImageFromVideo.Annotations;
-using Reactive.Bindings;
 
 namespace CutImageFromVideo {
     public class SettingData : INotifyPropertyChanged {

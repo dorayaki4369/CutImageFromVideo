@@ -8,9 +8,6 @@
  * 
  * Copyright (c) 2017, shimat All rights reserved.
  * https://github.com/shimat/opencvsharp/blob/master/LICENSE
- * 
- * Copyright (c) 2016 neuecc, xin9le, okazuki
- * https://github.com/runceel/ReactiveProperty/blob/master/LICENSE.txt
  */
 
 using System.Text;
