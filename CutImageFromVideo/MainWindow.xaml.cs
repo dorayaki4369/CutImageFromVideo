@@ -187,7 +187,7 @@ namespace CutImageFromVideo {
             _detector = new Detector(DataContext as SettingData);
             _detector.Run();
             var list = DataContext as SettingData;
-            await this.ShowMessageAsync("Finish!", "Total frame number = " + list?.TotalFrameNum.ToString());
+            await this.ShowMessageAsync("Finish!", GenDialogMessage());
 
             ChangeEnabledInButtons(true);
         }
@@ -207,6 +207,14 @@ namespace CutImageFromVideo {
             VideoList.IsEnabled = b;
             CascadeBox.IsEnabled = b;
             DirectryBox.IsEnabled = b;
+        }
+
+        private string GenDialogMessage() {
+            var list = DataContext as SettingData;
+            return new StringBuilder()
+                .Append("Total frame number   : ").Append(list?.TotalFrameNum.ToString()).Append("\n")
+                .Append("Current frame number : ").Append(list?.CurrentFrameNum.ToString())
+                .ToString();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e) {
