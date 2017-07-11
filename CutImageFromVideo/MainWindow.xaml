@@ -9,7 +9,7 @@
                       xmlns:cutImageFromVideo="clr-namespace:CutImageFromVideo"
                       mc:Ignorable="d"
                       Title="MainWindow"
-                      Height="600" Width="525"
+                      Width="525" SizeToContent="Height"
                       ResizeMode="CanMinimize">
     <Window.DataContext>
         <cutImageFromVideo:SettingData TotalFrameNum="1" CurrentFrameNum="0" />
@@ -21,18 +21,15 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="200" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
@@ -96,15 +93,57 @@
 
         <Button x:Name="DirectryBrowseButton" Content="Browse..."
                 Grid.Column="1" Grid.Row="6"
-                Margin="5" Height="Auto" Click="DirectryBrowseButton_Click" />
+                Margin="5" Height="Auto"
+                Click="DirectryBrowseButton_Click" />
+
+        <!--Other Settings-->
+        <ScrollViewer
+            Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"
+            Margin="5" Height="Auto" Width="Auto"
+            VerticalScrollBarVisibility="Visible">
+            <StackPanel>
+                <Expander x:Name="OutputImage" Header="Output Image" >
+                   <StackPanel>
+                        <TextBox x:Name="TextBlock"
+                                   Height="40"
+                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                   materialDesign:HintAssist.Hint="Output Image Name"
+                                   TextWrapping="NoWrap"
+                                   Text="Test" />
+                   </StackPanel> 
+                </Expander>
+
+                <Expander x:Name="Expander1" Header="Expander1" >
+                    <StackPanel>
+                        <RadioButton GroupName="One" IsChecked="True">Yes!</RadioButton>
+                        <RadioButton GroupName="One" IsChecked="False">No!</RadioButton>
+                    </StackPanel>
+                </Expander>
+
+                <Expander x:Name="Expander2" Header="Expander" >
+                    <StackPanel>
+                        <RadioButton GroupName="One" IsChecked="True">Yes!</RadioButton>
+                        <RadioButton GroupName="One" IsChecked="False">No!</RadioButton>
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
 
         <!--Start and stop form-->
-        <Grid Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2">
+        <Grid Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
+
+            <ProgressBar x:Name="ProgressBar"
+                         Grid.Column="0"
+                         Margin="5" Height="Auto"
+                         Minimum="0"
+                         Maximum="{Binding TotalFrameNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Value="{Binding CurrentFrameNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
             <Button x:Name="StartButton" Content="START"
                     Grid.Column="1"
                     Margin="5" Height="Auto"
@@ -119,35 +158,6 @@
                     IsEnabled="False"
                     IsCancel="True"
                     Click="CancelButton_Click" />
-
-            <ProgressBar x:Name="ProgressBar"
-                         Grid.Column="0"
-                         Margin="5" Height="Auto"
-                         Minimum="0"
-                         Maximum="{Binding TotalFrameNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         Value="{Binding CurrentFrameNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
-        <TabControl x:Name="TabControl"
-                    Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" Grid.RowSpan="4"
-                    Margin="5" Height="Auto" Width="Auto">
-
-            <TabItem Header="Image">
-                <ScrollViewer Background="LightGray">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                        <Label>F</Label>
-                        <TextBox>aaaaaaaaaa</TextBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label>S</Label>
-                    </StackPanel>
-                    </StackPanel>
-                </ScrollViewer>
-            </TabItem>
-
-            <TabItem Header="Other">
-                <Grid Background="LightGray" />
-            </TabItem>
-        </TabControl>
     </Grid>
 </Controls:MetroWindow>
