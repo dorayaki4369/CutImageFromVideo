@@ -15,6 +15,7 @@
 
 using System.Text;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using MahApps.Metro.Controls.Dialogs;
 using DataFormats = System.Windows.DataFormats;
@@ -30,6 +31,23 @@ namespace CutImageFromVideo {
     public partial class MainWindow {
         public MainWindow() {
             InitializeComponent();
+
+            ExtensionCombo.ItemsSource = new[] {
+                ".bmp", ".dib",
+                ".jpeg", ".jpg", ".jpe",
+                ".jp2",
+                ".png",
+                ".sr", ".ras",
+                ".tiff", ".tif",
+                ".exr",
+                ".webp",
+                ".pbm", ".pgm", ".ppm"
+            };
+
+            ProgressBar.Maximum = 1;
+            ProgressBar.Value = 0;
+            ImageName.Text = "image";
+            ExtensionCombo.SelectedIndex = 6;//.png
         }
 
         /**

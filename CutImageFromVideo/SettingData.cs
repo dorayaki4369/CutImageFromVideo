@@ -54,8 +54,6 @@ namespace CutImageFromVideo {
             set { SetProperty(ref _imageName, value); }
         }
 
-        public ObservableCollection<string> Extentions { get; set; }
-
         private string _imageExtention;
 
         public string ImageExtention {
