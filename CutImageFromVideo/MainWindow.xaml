@@ -12,7 +12,7 @@
                       Width="525" SizeToContent="Height"
                       ResizeMode="CanMinimize">
     <Window.DataContext>
-        <cutImageFromVideo:SettingData TotalFrameNum="1" CurrentFrameNum="0" />
+        <cutImageFromVideo:SettingData TotalFrameNum="1" CurrentFrameNum="0" ImageName="image" />
     </Window.DataContext>
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
@@ -97,37 +97,97 @@
                 Click="DirectryBrowseButton_Click" />
 
         <!--Other Settings-->
-        <ScrollViewer
+        <TabControl
             Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"
             Margin="5" Height="Auto" Width="Auto"
-            VerticalScrollBarVisibility="Visible">
-            <StackPanel>
-                <Expander x:Name="OutputImage" Header="Output Image" >
-                   <StackPanel>
-                        <TextBox x:Name="TextBlock"
-                                   Height="40"
-                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                   materialDesign:HintAssist.Hint="Output Image Name"
-                                   TextWrapping="NoWrap"
-                                   Text="Test" />
-                   </StackPanel> 
-                </Expander>
+            TabStripPlacement="Left">
+            <TabItem Header="Image">
+                <TabItem.Resources>
+                    <BooleanToVisibilityConverter x:Key="Btv" />
+                </TabItem.Resources>
+                <ScrollViewer
+                    Height="Auto" Width="Auto"
+                    VerticalScrollBarVisibility="Visible">
+                    <Border BorderBrush="DarkGray" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="9*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-                <Expander x:Name="Expander1" Header="Expander1" >
-                    <StackPanel>
-                        <RadioButton GroupName="One" IsChecked="True">Yes!</RadioButton>
-                        <RadioButton GroupName="One" IsChecked="False">No!</RadioButton>
-                    </StackPanel>
-                </Expander>
+                            <Label Content="Output image name" FontSize="20"
+                                   Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Margin="5"
+                                   VerticalContentAlignment="Center" />
 
-                <Expander x:Name="Expander2" Header="Expander" >
-                    <StackPanel>
-                        <RadioButton GroupName="One" IsChecked="True">Yes!</RadioButton>
-                        <RadioButton GroupName="One" IsChecked="False">No!</RadioButton>
-                    </StackPanel>
-                </Expander>
-            </StackPanel>
-        </ScrollViewer>
+                            <TextBox x:Name="ImageName" Text="{Binding ImageName}"
+                                     Grid.Column="1" Grid.Row="1" Margin="5,5,0,5" Width="200"
+                                     HorizontalAlignment="Left"
+                                     TextWrapping="NoWrap" />
+
+                            <Label Content="Enable zero-fill" FontSize="20"
+                                   Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="5"
+                                   VerticalContentAlignment="Center" />
+
+                            <Controls:ToggleSwitch x:Name="ZerofillEnabledSwitch"
+                                                   Grid.Column="1" Grid.Row="4" Margin="5,5,0,5"
+                                                   HorizontalAlignment="Left"
+                                                   IsChecked="True"
+                                                   Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" />
+
+                            <Label x:Name="NumOfZeroFill" FontSize="20"
+                                   Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Margin="5"
+                                   IsEnabled="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked}"
+                                   Visibility="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked, Converter={StaticResource Btv}}"
+                                   Content="{Binding ElementName=Slider, Path=Value}"
+                                   ContentStringFormat="Number of zero-fill : {0}" />
+
+                            <Slider x:Name="Slider"
+                                    Grid.Column="1" Grid.Row="6" Margin="5,5,0,5" Width="200"
+                                    HorizontalAlignment="Left"
+                                    IsEnabled="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked}"
+                                    Visibility="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked, Converter={StaticResource Btv}}"
+                                    Minimum="2" Maximum="10" Value="5"
+                                    Style="{StaticResource MaterialDesignSlider}" />
+
+                            <Label Content="Extension" FontSize="20"
+                                   Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" Margin="5" />
+
+                            <ComboBox x:Name="ExtensionCombo"
+                                      Grid.Column="1" Grid.Row="8" Margin="5,5,0,5" Width="50"
+                                      HorizontalAlignment="Left"
+                                      ItemsSource="{Binding Extentions, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <!--<Label x:Name="ImageNameSample" FontSize="20"
+                                   Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" Margin="5"
+                                   ContentStringFormat="Number of zero-fill : {0}" >
+                                <MultiBinding Converter="{StaticResource ContentFontFamily}">
+                                    <Binding Path=""></Binding>
+                                </MultiBinding>
+                                </Label>-->
+
+                        </Grid>
+                    </Border>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Frame">
+                <Grid Background="DarkRed" />
+            </TabItem>
+            <TabItem Header="Classification">
+                <Grid Background="Blue" />
+            </TabItem>
+        </TabControl>
 
         <!--Start and stop form-->
         <Grid Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2">

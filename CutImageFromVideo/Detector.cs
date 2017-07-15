@@ -94,9 +94,9 @@ namespace CutImageFromVideo {
         private void SaveImg(IEnumerable<Mat> mats) {
             foreach (var mat in mats) {
                 var sb = new StringBuilder(Outputfile)
-                    .Append("image")
+                    .Append(SettingData.ImageName)
                     .AppendFormat("{0:D5}", ImgNum)
-                    .Append(".png");
+                    .Append(SettingData.ImageExtention);
                 ImgNum++;
 
                 //Save

@@ -17,7 +17,7 @@ namespace CutImageFromVideo {
             h?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public ObservableCollection<string> VideoFileNames { get; private set; }
+        public ObservableCollection<string> VideoFileNames { get; set; }
 
         private string _cascadeFileName;
 
@@ -45,6 +45,22 @@ namespace CutImageFromVideo {
         public int CurrentFrameNum {
             get { return _currentFrameNum; }
             set { SetProperty(ref _currentFrameNum, value); }
+        }
+
+        private string _imageName;
+
+        public string ImageName {
+            get { return _imageName; }
+            set { SetProperty(ref _imageName, value); }
+        }
+
+        public ObservableCollection<string> Extentions { get; set; }
+
+        private string _imageExtention;
+
+        public string ImageExtention {
+            get { return _imageExtention; }
+            set { SetProperty(ref _imageExtention, value); }
         }
 
         public SettingData() {
