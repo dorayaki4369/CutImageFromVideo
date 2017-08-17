@@ -175,7 +175,8 @@
                                     HorizontalAlignment="Left"
                                     IsEnabled="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked}"
                                     Visibility="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked, Converter={StaticResource Btv}}"
-                                    Minimum="2" Maximum="10" Value="{Binding ZeroNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Minimum="2" Maximum="10"
+                                    Value="{Binding ZeroNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource MaterialDesignSlider}" />
 
                             <Label Content="Extension" FontSize="20"

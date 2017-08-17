@@ -50,7 +50,7 @@ namespace CutImageFromVideo {
             ImageName.Text = "image";
             ZerofillEnabledSwitch.IsChecked = true;
             Slider.Value = 5;
-            ExtensionCombo.SelectedIndex = 6;//.png
+            ExtensionCombo.SelectedIndex = 6; //.png
         }
 
         /**

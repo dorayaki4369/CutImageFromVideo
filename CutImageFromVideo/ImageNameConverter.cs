@@ -13,7 +13,7 @@ namespace CutImageFromVideo {
                 values[1] = "0";
             }
             var format = new StringBuilder("{0:D").Append(values[1]).Append("}").ToString();
-            var zeros = string.Format(format,0);
+            var zeros = string.Format(format, 0);
             return new StringBuilder(zeros).Append(values[2]).ToString();
         }
 
