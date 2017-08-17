@@ -58,7 +58,7 @@ namespace CutImageFromVideo {
 
                             //Detecting every 10 frames because the number of images
                             //increases too much when cutting out all frames
-                            if (frameNum % 10 == 0) DetectAndSaveImg(frame);
+                            if (frameNum % SettingData.FrameRateNum == 0) DetectAndSaveImg(frame);
                         }
                     }
                     Console.WriteLine(@"End of video");

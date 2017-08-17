@@ -47,10 +47,13 @@ namespace CutImageFromVideo {
 
             ProgressBar.Maximum = 1;
             ProgressBar.Value = 0;
+
             ImageName.Text = "image";
             ZerofillEnabledSwitch.IsChecked = true;
-            Slider.Value = 5;
+            ZeroNumSlider.Value = 5;
             ExtensionCombo.SelectedIndex = 6; //.png
+
+            FrameRateSlider.Value = 1;
         }
 
         /**

@@ -114,7 +114,8 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="4*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -130,7 +131,7 @@
                             </Grid.RowDefinitions>
 
                             <Label Content="Output image name" FontSize="20"
-                                   Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Margin="5"
+                                   Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Margin="5"
                                    VerticalContentAlignment="Center" />
 
                             <TextBox x:Name="ImageName"
@@ -155,7 +156,7 @@
                             </TextBox>
 
                             <Label Content="Enable zero-fill" FontSize="20"
-                                   Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Margin="5" />
+                                   Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3" Margin="5" />
 
                             <Controls:ToggleSwitch x:Name="ZerofillEnabledSwitch"
                                                    Grid.Column="1" Grid.Row="4" Margin="5,5,0,5"
@@ -163,16 +164,15 @@
                                                    IsChecked="{Binding EnableZeroFill, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                    Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" />
 
-                            <Label x:Name="NumOfZeroFill" FontSize="20"
-                                   Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Margin="5"
+                            <Label FontSize="20"
+                                   Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="5" Margin="5"
                                    IsEnabled="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked}"
                                    Visibility="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked, Converter={StaticResource Btv}}"
-                                   Content="{Binding ElementName=Slider, Path=Value}"
+                                   Content="{Binding ElementName=ZeroNumSlider, Path=Value}"
                                    ContentStringFormat="Number of zero-fill : {0}" />
 
-                            <Slider x:Name="Slider"
-                                    Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" Margin="5" Width="200"
-                                    HorizontalAlignment="Left"
+                            <Slider x:Name="ZeroNumSlider"
+                                    Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" Margin="5"
                                     IsEnabled="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked}"
                                     Visibility="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked, Converter={StaticResource Btv}}"
                                     Minimum="2" Maximum="10"
@@ -180,7 +180,7 @@
                                     Style="{StaticResource MaterialDesignSlider}" />
 
                             <Label Content="Extension" FontSize="20"
-                                   Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="7" Margin="5" />
+                                   Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="7" Margin="5" />
 
                             <ComboBox x:Name="ExtensionCombo"
                                       Grid.Column="1" Grid.Row="8" Margin="5,5,0,5" Width="50"
@@ -193,7 +193,38 @@
                 </ScrollViewer>
             </TabItem>
             <TabItem Header="Frame">
-                <Grid Background="DarkRed" />
+                <ScrollViewer
+                    Height="Auto" Width="Auto"
+                    VerticalScrollBarVisibility="Visible"
+                    CanContentScroll="False">
+                    <Border BorderBrush="DarkGray" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label FontSize="20"
+                                   Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Margin="5"
+                                   Content="{Binding ElementName=FrameRateSlider, Path=Value}"
+                                   ContentStringFormat="Detected every 10^{0} frames">
+                            </Label>
+
+                            <Slider x:Name="FrameRateSlider"
+                                    Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="5"
+                                    Minimum="0" Maximum="5"
+                                    Value="{Binding FrameRateMultiplier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Style="{StaticResource MaterialDesignSlider}" />
+
+                        </Grid>
+                    </Border>
+                </ScrollViewer>
             </TabItem>
             <TabItem Header="Classification">
                 <Grid Background="Blue" />

@@ -152,5 +152,23 @@ namespace CutImageFromVideo {
         public SettingData() {
             VideoFileNames = new ObservableCollection<string>();
         }
+
+        private int _frameRateMultiplier;
+
+        public int FrameRateMultiplier {
+            get { return _frameRateMultiplier; }
+            set {
+                SetProperty(ref _frameRateMultiplier, value);
+                value = int.Parse(Math.Pow(10, value).ToString());
+                SetProperty(ref _frameRateNum, value);
+            }
+        }
+
+        private int _frameRateNum;
+
+        public int FrameRateNum {
+            get { return _frameRateNum; }
+            set { SetProperty(ref _frameRateNum, value); }
+        }
     }
 }
