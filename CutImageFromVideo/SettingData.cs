@@ -17,7 +17,7 @@ namespace CutImageFromVideo {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void SetProperty<T>([NotNull] ref T field, [NotNull] T value,
-            [CallerMemberName] string propertyName = null) {
+                                    [CallerMemberName] string propertyName = null) {
             //if (field == null) throw new ArgumentNullException(nameof(field));
 
             field = value;
@@ -121,6 +121,25 @@ namespace CutImageFromVideo {
                 }
                 OnErrorsChanged();
             }
+        }
+
+        private bool _enableZeroFill;
+
+        public bool EnableZeroFill {
+            get { return _enableZeroFill; }
+            set {
+                SetProperty(ref _enableZeroFill, value);
+                if (!_enableZeroFill) {
+                    SetProperty(ref _zeroNum, 0);
+                }
+            }
+        }
+
+        private int _zeroNum;
+
+        public int ZeroNum {
+            get { return _zeroNum; }
+            set { SetProperty(ref _zeroNum, value); }
         }
 
         private string _imageExtention;

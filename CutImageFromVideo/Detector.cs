@@ -9,6 +9,7 @@ namespace CutImageFromVideo {
         private SettingData SettingData { get; }
         private CascadeClassifier Cascade { get; }
         private string Outputfile { get; }
+        private string ZeroFillFormat { get; }
         private int ImgNum { get; set; }
         private bool IsExitStatus { get; set; }
 
@@ -17,6 +18,7 @@ namespace CutImageFromVideo {
             Cascade = new CascadeClassifier(SettingData.CascadeFileName);
             Outputfile = new StringBuilder(settingData.OutputDirectryName).Append("\\").ToString();
             ImgNum = 0;
+            ZeroFillFormat = new StringBuilder("{0:D").Append(settingData.ZeroNum).Append("}").ToString();
             IsExitStatus = false;
         }
 
@@ -93,14 +95,15 @@ namespace CutImageFromVideo {
         //Save image
         private void SaveImg(IEnumerable<Mat> mats) {
             foreach (var mat in mats) {
-                var sb = new StringBuilder(Outputfile)
+                var imgName = new StringBuilder(Outputfile)
                     .Append(SettingData.ImageName)
-                    .AppendFormat("{0:D5}", ImgNum)
-                    .Append(SettingData.ImageExtention);
+                    .AppendFormat(ZeroFillFormat, ImgNum)
+                    .Append(SettingData.ImageExtention)
+                    .ToString();
                 ImgNum++;
 
                 //Save
-                Cv2.ImWrite(sb.ToString(), mat);
+                Cv2.ImWrite(imgName, mat);
 
                 //Show cuted image
                 Cv2.ImShow("image", mat);

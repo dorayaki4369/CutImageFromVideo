@@ -17,6 +17,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using MahApps.Metro.Controls.Dialogs;
 using DataFormats = System.Windows.DataFormats;
 using DragDropEffects = System.Windows.DragDropEffects;
@@ -47,6 +48,8 @@ namespace CutImageFromVideo {
             ProgressBar.Maximum = 1;
             ProgressBar.Value = 0;
             ImageName.Text = "image";
+            ZerofillEnabledSwitch.IsChecked = true;
+            Slider.Value = 5;
             ExtensionCombo.SelectedIndex = 6;//.png
         }
 

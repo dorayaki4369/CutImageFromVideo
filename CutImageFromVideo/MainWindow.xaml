@@ -107,12 +107,14 @@
                 </TabItem.Resources>
                 <ScrollViewer
                     Height="Auto" Width="Auto"
-                    VerticalScrollBarVisibility="Visible">
+                    VerticalScrollBarVisibility="Visible"
+                    CanContentScroll="False">
                     <Border BorderBrush="DarkGray" BorderThickness="1">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="9*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="4*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -128,56 +130,62 @@
                             </Grid.RowDefinitions>
 
                             <Label Content="Output image name" FontSize="20"
-                                   Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Margin="5"
+                                   Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Margin="5"
                                    VerticalContentAlignment="Center" />
 
-                            <TextBox x:Name="ImageName" Text="{Binding ImageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Grid.Column="1" Grid.Row="1" Margin="5,5,0,5" Width="200"
-                                     HorizontalAlignment="Left"
-                                     TextWrapping="NoWrap" />
+                            <TextBox x:Name="ImageName"
+                                     Text="{Binding ImageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Grid.Column="1" Grid.Row="1" Margin="5,5,0,5"
+                                     TextAlignment="Right" TextWrapping="NoWrap" />
+
+                            <TextBox x:Name="CannotChengeImageName"
+                                     Grid.Column="2" Grid.Row="1" Margin="0,5,5,5"
+                                     IsEnabled="False" IsReadOnly="True"
+                                     TextAlignment="left" TextWrapping="NoWrap">
+                                <TextBox.Resources>
+                                    <local:ImageNameConverter x:Key="ImageNameConverter" />
+                                </TextBox.Resources>
+                                <TextBox.Text>
+                                    <MultiBinding Converter="{StaticResource ImageNameConverter}">
+                                        <Binding Path="EnableZeroFill" />
+                                        <Binding Path="ZeroNum" />
+                                        <Binding Path="ImageExtention" />
+                                    </MultiBinding>
+                                </TextBox.Text>
+                            </TextBox>
 
                             <Label Content="Enable zero-fill" FontSize="20"
-                                   Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Margin="5"
-                                   VerticalContentAlignment="Center" />
+                                   Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Margin="5" />
 
                             <Controls:ToggleSwitch x:Name="ZerofillEnabledSwitch"
                                                    Grid.Column="1" Grid.Row="4" Margin="5,5,0,5"
                                                    HorizontalAlignment="Left"
-                                                   IsChecked="True"
+                                                   IsChecked="{Binding EnableZeroFill, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                    Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" />
 
                             <Label x:Name="NumOfZeroFill" FontSize="20"
-                                   Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Margin="5"
+                                   Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Margin="5"
                                    IsEnabled="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked}"
                                    Visibility="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked, Converter={StaticResource Btv}}"
                                    Content="{Binding ElementName=Slider, Path=Value}"
                                    ContentStringFormat="Number of zero-fill : {0}" />
 
                             <Slider x:Name="Slider"
-                                    Grid.Column="1" Grid.Row="6" Margin="5,5,0,5" Width="200"
+                                    Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" Margin="5" Width="200"
                                     HorizontalAlignment="Left"
                                     IsEnabled="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked}"
                                     Visibility="{Binding ElementName=ZerofillEnabledSwitch, Path=IsChecked, Converter={StaticResource Btv}}"
-                                    Minimum="2" Maximum="10" Value="5"
+                                    Minimum="2" Maximum="10" Value="{Binding ZeroNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource MaterialDesignSlider}" />
 
                             <Label Content="Extension" FontSize="20"
-                                   Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" Margin="5" />
+                                   Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="7" Margin="5" />
 
                             <ComboBox x:Name="ExtensionCombo"
                                       Grid.Column="1" Grid.Row="8" Margin="5,5,0,5" Width="50"
                                       HorizontalAlignment="Left"
                                       SelectedItem="{Binding ImageExtention}"
                                       SelectedValue="{Binding ImageExtention, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-                            <!--<Label x:Name="ImageNameSample" FontSize="20"
-                                   Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9" Margin="5" >
-                                <Label.Content>
-                                    <MultiBinding Converter="{StaticResource }">
-                                        
-                                    </MultiBinding>
-                                </Label.Content>
-                            </Label>-->
 
                         </Grid>
                     </Border>

@@ -129,6 +129,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Detector.cs" />
+    <Compile Include="ImageNameConverter.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="SettingData.cs" />
     <Page Include="MainWindow.xaml">
